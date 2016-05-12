@@ -20,3 +20,4 @@
   )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
+(tool-bar-mode -1)
