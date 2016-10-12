@@ -37,3 +37,6 @@
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
+
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
