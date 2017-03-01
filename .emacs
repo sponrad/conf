@@ -23,6 +23,7 @@
  'magit
  'zenburn-theme
  'web-mode
+ 'projectile
 )
 
 (tool-bar-mode -1)
@@ -51,6 +52,10 @@
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+
+;; projectile
+(projectile-global-mode)
+(global-set-key (kbd "C-x C-p") 'projectile-find-file)
 
 ;; theme
 (load-theme 'zenburn t)
