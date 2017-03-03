@@ -8,7 +8,7 @@
 
 ;; === CUSTOM CHECK FUNCTION ===
 (defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
+  "Assure every package is installed, ask for installation if its not.
    Return a list of installed packages or nil for every skipped package."
   (mapcar
    (lambda (package)
