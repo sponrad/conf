@@ -31,6 +31,7 @@ Return a list of installed packages or nil for every skipped package."
  'zenburn-theme
  'web-mode
  'projectile
+ 'helm-projectile
 )
 
 (tool-bar-mode -1)
@@ -64,6 +65,9 @@ Return a list of installed packages or nil for every skipped package."
 ;; projectile
 (projectile-global-mode)
 (global-set-key (kbd "C-x C-p") 'projectile-find-file)
+
+;; helm-projectile
+(helm-projectile-on)
 
 ;; theme
 (load-theme 'zenburn t)
