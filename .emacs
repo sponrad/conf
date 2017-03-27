@@ -42,6 +42,26 @@ Return a list of installed packages or nil for every skipped package."
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+(use-package web-mode
+  :mode (("\\.html?\\'" . web-mode)
+         ("\\.djhtml?\\'" . web-mode)
+         ("\\.tpl" . web-mode)
+         ("\\.jsx" . web-mode))
+  :config
+  (defun m/current-buffer-django-p ()
+    (save-excursion
+      (search-forward-regexp "{% base\\|{% if\\|{% for\\|{% include\\|{% block\\|{% csrf_token %}\\|{% url\\|{{ "
+                             nil
+                             t)))
+  (setq web-mode-engines-alist
+        '(("django". "\\.djhtml")
+          ("django" . m/current-buffer-django-p)
+          ("php" . "\\.php")))
+  (setq web-mode-content-types-alist
+        '(("jsx"  . "\\.jsx")))
+  (define-key web-mode-map (kbd "C-;") nil)
+  (setq-default web-mode-markup-indent-offset 2)
+  (add-hook 'web-mode-hook (lambda () (electric-pair-local-mode 0))))
 
 ;; temp file save directory
 (setq backup-directory-alist `(("." . "~/.saves")))
@@ -64,7 +84,9 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; projectile
 (projectile-global-mode)
-(global-set-key (kbd "C-x C-p") 'projectile-find-file)
+(define-key projectile-mode-map [?\s-g] 'projectile-grep)
+(define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(setq projectile-enable-caching t)
 
 ;; helm-projectile
 (helm-projectile-on)
