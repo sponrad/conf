@@ -32,11 +32,16 @@ Return a list of installed packages or nil for every skipped package."
  'web-mode
  'projectile
  'helm-projectile
+ 'use-package
+ 's
+ 'dumb-jump
 )
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+
+(setq-default indent-tabs-mode nil)
 
 ;; web mode
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
@@ -90,6 +95,9 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; helm-projectile
 (helm-projectile-on)
+
+;; dumb-jump
+(dumb-jump-mode)
 
 ;; theme
 (load-theme 'zenburn t)
