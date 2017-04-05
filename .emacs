@@ -86,10 +86,11 @@ Return a list of installed packages or nil for every skipped package."
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+(global-set-key (kbd "s-g") 'helm-grep-do-git-grep)
 
 ;; projectile
 (projectile-global-mode)
-(define-key projectile-mode-map [?\s-g] 'projectile-grep)
+;;(define-key projectile-mode-map [?\s-g] 'projectile-grep)
 (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
 (setq projectile-enable-caching t)
 
