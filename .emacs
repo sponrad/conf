@@ -102,3 +102,7 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; theme
 (load-theme 'zenburn t)
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
