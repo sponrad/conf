@@ -106,3 +106,38 @@ Return a list of installed packages or nil for every skipped package."
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
+
+(use-package s)
+
+(use-package git-commit
+	     :bind
+	     ("C-c C-e" . m/suggest-commit-message-prefix))
+
+(defun m/suggest-commit-message-prefix ()
+  "Looks at recent commits for the currently staged files and
+suggests some commit message prefixes."
+  (interactive)
+  (magit-with-toplevel
+    (let* ((all-prefixes (mapcar (lambda (el) (car (s-match ".*: "
+                                                            (substring el 1))))
+                                 (magit-git-lines "log" "--no-merges" "--pretty=\"%s\"" "-100" "--"
+                                                  (magit-git-lines "diff" "--cached" "--name-only"))))
+           (uniq-prefixes (-uniq (-filter 'identity all-prefixes)))
+           (counted-prefixes (mapcar (lambda (el) (cons el
+                                                        (-count (lambda (el2) (string= el2 el))
+                                                                all-prefixes)))
+                                     uniq-prefixes))
+           (sorted-choices (-sort (lambda (c1 c2) (> (cdr c1) (cdr c2)))
+                                  counted-prefixes))
+           (formatted-choices (mapcar (lambda (el) (format "%s (used %d time%s recently)"
+                                                           (car el)
+                                                           (cdr el)
+                                                           (if (= (cdr el) 1)
+                                                               ""
+                                                             "s")))
+                                      sorted-choices)))
+      (when (> (length formatted-choices) 0)
+        (insert (car (split-string (ido-completing-read "Commit message prefix: "
+                                                          formatted-choices)
+                                     " (used .* time.* recently)"))))
+      formatted-choices)))
