@@ -35,7 +35,11 @@ Return a list of installed packages or nil for every skipped package."
  'use-package
  's
  'dumb-jump
-)
+ 'google-this
+ 'smart-mode-line
+ )
+
+(setq shell-file-name "/bin/bash")
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -86,13 +90,20 @@ Return a list of installed packages or nil for every skipped package."
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-(global-set-key (kbd "s-g") 'helm-grep-do-git-grep)
+; (global-set-key (kbd "s-g") 'helm-grep-do-git-grep)
+; custom function to grep entire repo
+(defun my-helm-grep-do-git-grep (not-all)
+  (interactive "P")
+  (helm-grep-git-1 default-directory (null not-all)))
+
+(global-set-key (kbd "s-g") 'my-helm-grep-do-git-grep)
 
 ;; projectile
+(setq projectile-enable-caching t)
 (projectile-global-mode)
+(global-set-key (kbd "C-x C-p") 'projectile-find-file)
 ;;(define-key projectile-mode-map [?\s-g] 'projectile-grep)
 (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
-(setq projectile-enable-caching t)
 
 ;; helm-projectile
 (helm-projectile-on)
@@ -102,6 +113,20 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; theme
 (load-theme 'zenburn t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   (quote
+    ((flycheck-python-pylint-executable . "~/sites/str-prod/env/bin/pylint")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
 (use-package flycheck
   :ensure t
@@ -112,6 +137,10 @@ Return a list of installed packages or nil for every skipped package."
 (use-package nyan-mode
   :config
   (nyan-mode))
+
+(google-this-mode 1)
+
+(sml/setup)
 
 (use-package git-commit
 	     :bind
@@ -145,3 +174,22 @@ suggests some commit message prefixes."
                                                           formatted-choices)
                                      " (used .* time.* recently)"))))
       formatted-choices)))
+
+(use-package which-func
+  :config
+  (which-function-mode)
+  (setq which-func-unknown "-")
+  (set-face-attribute 'which-func nil
+                      :foreground "deep sky blue")
+  (setq mode-line-misc-info
+        ;; We remove Which Function Mode from the mode line, because it's mostly
+        ;; invisible here anyway.
+        (assq-delete-all 'which-func-mode mode-line-misc-info))
+  (setq which-func-non-auto-modes '(gnus-group-mode
+                                    gnus-summary-mode
+                                    gnus-article-mode
+                                    text-mode
+                                    fundamental-mode
+                                    help-mode
+                                    git-commit-mode
+                                    magit-mode)))
