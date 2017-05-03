@@ -109,6 +109,10 @@ Return a list of installed packages or nil for every skipped package."
 
 (use-package s)
 
+(use-package nyan-mode
+  :config
+  (nyan-mode))
+
 (use-package git-commit
 	     :bind
 	     ("C-c C-e" . m/suggest-commit-message-prefix))
