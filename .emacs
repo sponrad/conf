@@ -179,6 +179,14 @@ suggests some commit message prefixes."
   :config
   (which-function-mode)
   (setq which-func-unknown "-")
+    (setq mode-line-format (delete (assoc 'which-func-mode
+                                        mode-line-format) mode-line-format)
+        which-func-header-line-format '(which-func-mode ("" which-func-format)))
+  (defadvice which-func-ff-hook (after header-line activate)
+    (when which-func-mode
+      (setq mode-line-format (delete (assoc 'which-func-mode
+                                            mode-line-format) mode-line-format)
+            header-line-format which-func-header-line-format)))	     
   (set-face-attribute 'which-func nil
                       :foreground "deep sky blue")
   (setq mode-line-misc-info
