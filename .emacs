@@ -41,6 +41,8 @@ Return a list of installed packages or nil for every skipped package."
 
 (setq shell-file-name "/bin/bash")
 
+(setq confirm-kill-emacs 'y-or-n-p)
+
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
