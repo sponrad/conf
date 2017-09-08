@@ -37,6 +37,9 @@ Return a list of installed packages or nil for every skipped package."
  'dumb-jump
  'google-this
  'smart-mode-line
+ 'highlight-symbol
+ 'multiple-cursors
+ 'phi-search
  )
 
 (setq shell-file-name "/bin/bash")
@@ -120,6 +123,9 @@ Return a list of installed packages or nil for every skipped package."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this flycheck dumb-jump)))
  '(safe-local-variable-values
    (quote
     ((flycheck-python-pylint-executable . "~/sites/str-prod/env/bin/pylint")))))
@@ -181,14 +187,14 @@ suggests some commit message prefixes."
   :config
   (which-function-mode)
   (setq which-func-unknown "-")
-    (setq mode-line-format (delete (assoc 'which-func-mode
+  (setq mode-line-format (delete (assoc 'which-func-mode
                                         mode-line-format) mode-line-format)
         which-func-header-line-format '(which-func-mode ("" which-func-format)))
   (defadvice which-func-ff-hook (after header-line activate)
     (when which-func-mode
       (setq mode-line-format (delete (assoc 'which-func-mode
                                             mode-line-format) mode-line-format)
-            header-line-format which-func-header-line-format)))	     
+            header-line-format which-func-header-line-format)))
   (set-face-attribute 'which-func nil
                       :foreground "deep sky blue")
   (setq mode-line-misc-info
@@ -203,3 +209,37 @@ suggests some commit message prefixes."
                                     help-mode
                                     git-commit-mode
                                     magit-mode)))
+
+(use-package highlight-symbol
+  :bind
+  (("C-c M-s h ." . highlight-symbol-at-point)
+   ("C-c M-s h n" . highlight-symbol-next)
+   ("C-c M-s h p" . highlight-symbol-prev)
+   ("C-c M-s h a" . highlight-symbol-remove-all)))
+
+(use-package multiple-cursors
+  :bind
+  (("C-S-c C-S-c" . mc/edit-lines)
+   ("C-c m C" . mc/edit-lines)
+   ("C->" . mc/mark-next-like-this)
+   ("C-c m >" . mc/mark-next-like-this)
+   ("C-<" . mc/mark-previous-like-this)
+   ("C-c m <" . mc/mark-previous-like-this)
+   ("C-c C-<" . mc/mark-all-like-this)
+   ("C-c m m <" . mc/mark-all-like-this))
+  :init
+  (use-package phi-search
+    :init
+    ;; credit to @jonebird for the following 
+    ;; Allow isearch functionality with multipl-cursors
+    (add-hook 'multiple-cursors-mode-enabled-hook
+              (lambda ()
+                (interactive)
+                (global-set-key (kbd "C-s") 'phi-search)
+                (global-set-key (kbd "C-r") 'phi-search-backward)))
+
+    (add-hook 'multiple-cursors-mode-disabled-hook
+              (lambda ()
+                (interactive)
+                (global-set-key (kbd "C-s") 'isearch-forward)
+                (global-set-key (kbd "C-r") 'isearch-backward)))))
