@@ -139,7 +139,31 @@ Return a list of installed packages or nil for every skipped package."
 
 (use-package flycheck
   :ensure t
-  :init (global-flycheck-mode))
+  :init (global-flycheck-mode)
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; use local eslint from node_modules before global
+  ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+  (defun my/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint (and root
+                        (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                          root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
+
+  (defun my/configure-web-mode-flycheck-checkers ()
+    ;; in order to have flycheck enabled in web-mode, add an entry to this
+    ;; cond that matches the web-mode engine/content-type/etc and returns the
+    ;; appropriate checker.
+    (-when-let (checker (cond
+                         ((string= web-mode-content-type "jsx")
+                          'javascript-eslint)))
+      (flycheck-mode)
+      (flycheck-select-checker checker)))
+  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  (add-hook 'web-mode-hook #'my/configure-web-mode-flycheck-checkers))
 
 (use-package s)
 
