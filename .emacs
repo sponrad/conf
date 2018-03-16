@@ -40,6 +40,7 @@ Return a list of installed packages or nil for every skipped package."
  'highlight-symbol
  'multiple-cursors
  'phi-search
+ 'company
  )
 
 (setq shell-file-name "/bin/bash")
@@ -268,3 +269,5 @@ suggests some commit message prefixes."
                 (interactive)
                 (global-set-key (kbd "C-s") 'isearch-forward)
                 (global-set-key (kbd "C-r") 'isearch-backward)))))
+
+(add-hook 'after-init-hook 'global-company-mode)
