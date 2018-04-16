@@ -41,6 +41,7 @@ Return a list of installed packages or nil for every skipped package."
  'multiple-cursors
  'phi-search
  'company
+ 'whitespace-cleanup-mode
  )
 
 (setq shell-file-name "/bin/bash")
@@ -271,3 +272,5 @@ suggests some commit message prefixes."
                 (global-set-key (kbd "C-r") 'isearch-backward)))))
 
 (add-hook 'after-init-hook 'global-company-mode)
+
+(add-hook 'after-init-hook 'global-whitespace-cleanup-mode)
