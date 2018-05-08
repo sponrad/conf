@@ -274,3 +274,20 @@ suggests some commit message prefixes."
 (add-hook 'after-init-hook 'global-company-mode)
 
 (add-hook 'after-init-hook 'global-whitespace-cleanup-mode)
+
+(defun m/shell-here ()
+  "Create a new tmux window in the current directory and switch
+to it."
+  (interactive)
+  (let ((tmux-cmd (format "tmux new-window -c \"%s\""
+                          (expand-file-name default-directory)))
+        (wmctrl-cmd (format "wmctrl -a 'zsh - \"%s@%s: '"
+                            (user-login-name)
+                            system-name)))
+    (message "Trying %s" tmux-cmd)
+    (shell-command tmux-cmd)
+    (sit-for 1.5)
+    (message "Trying %s" wmctrl-cmd)
+    (shell-command wmctrl-cmd)))
+
+(global-set-key (kbd "C-c m m x") 'm/shell-here)
