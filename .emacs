@@ -291,3 +291,5 @@ to it."
     (shell-command wmctrl-cmd)))
 
 (global-set-key (kbd "C-c m m x") 'm/shell-here)
+
+(load "~/sites/str-prod/unicorn.el")
