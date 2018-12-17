@@ -9,8 +9,9 @@
 
 (package-initialize)
 
+
 (defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
+  "Assure every package is installed, install it if it’s not.
 
 Return a list of installed packages or nil for every skipped package."
   (mapcar
@@ -18,9 +19,8 @@ Return a list of installed packages or nil for every skipped package."
      ;; (package-installed-p 'evil)
      (if (package-installed-p package)
          nil
-       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
-           (package-install package)
-         package)))
+       (package-install package))
+     )
    packages))
 
 (or (file-exists-p package-user-dir)
@@ -44,6 +44,7 @@ Return a list of installed packages or nil for every skipped package."
  'phi-search
  'company
  'whitespace-cleanup-mode
+ 'nyan-mode
  )
 
 (setq shell-file-name "/bin/bash")
@@ -130,7 +131,7 @@ Return a list of installed packages or nil for every skipped package."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this flycheck dumb-jump)))
+    (markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this flycheck dumb-jump)))
  '(safe-local-variable-values
    (quote
     ((flycheck-python-pylint-executable . "~/sites/str-prod/env/bin/pylint")))))
