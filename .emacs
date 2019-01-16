@@ -296,3 +296,6 @@ to it."
 (global-set-key (kbd "C-c m m x") 'm/shell-here)
 
 (load "~/sites/str-prod/unicorn.el")
+
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+(global-set-key (kbd "C-c w") 'whitespace-mode)
