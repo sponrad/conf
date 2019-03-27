@@ -299,3 +299,10 @@ to it."
 
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 (global-set-key (kbd "C-c w") 'whitespace-mode)
+
+(defun shrug ()
+  "Insert a shrugging figure at the cursor"
+  (interactive)
+  (insert "¯\\_(ツ)_/¯")
+  )
+
