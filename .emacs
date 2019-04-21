@@ -307,3 +307,5 @@ to it."
   )
 
 (global-set-key (kbd "C-c b") 'magit-blame)
+
+(setq-default vc-follow-symlinks t)
