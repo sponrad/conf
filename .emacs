@@ -45,6 +45,7 @@ Return a list of installed packages or nil for every skipped package."
  'company
  'whitespace-cleanup-mode
  'nyan-mode
+ 'git-link
  )
 
 (setq shell-file-name "/bin/bash")
@@ -309,3 +310,6 @@ to it."
 (global-set-key (kbd "C-c b") 'magit-blame)
 
 (setq-default vc-follow-symlinks t)
+
+(setq-default git-link-open-in-browser t)
+(global-set-key (kbd "C-c l") 'git-link)
