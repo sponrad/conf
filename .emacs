@@ -311,5 +311,10 @@ to it."
 
 (setq-default vc-follow-symlinks t)
 
-(setq-default git-link-open-in-browser t)
+(defun git-link-browse ()
+  (interactive)
+  (setq-default git-link-open-in-browser t)
+  (call-interactively 'git-link)
+  (setq-default git-link-open-in-browser nil))
 (global-set-key (kbd "C-c l") 'git-link)
+(global-set-key (kbd "C-c j") 'git-link-browse)
