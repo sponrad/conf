@@ -304,8 +304,12 @@ to it."
 (defun shrug ()
   "Insert a shrugging figure at the cursor"
   (interactive)
-  (insert "¯\\_(ツ)_/¯")
-  )
+  (insert "¯\\_(ツ)_/¯"))
+
+(defun set-trace ()
+  "Insert a python trace at the cursor"
+  (interactive)
+  (insert "import pdb; pdb.set_trace()"))
 
 (global-set-key (kbd "C-c b") 'magit-blame)
 
