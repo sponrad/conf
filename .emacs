@@ -322,3 +322,11 @@ to it."
   (setq-default git-link-open-in-browser nil))
 (global-set-key (kbd "C-c l") 'git-link)
 (global-set-key (kbd "C-c j") 'git-link-browse)
+
+(defun mirror ()
+  "Mirror the current buffer into two vertical pages"
+  (interactive)
+  (delete-other-windows)
+  (split-window-right))
+
+(global-set-key (kbd "C-c m") 'mirror)
