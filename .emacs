@@ -329,4 +329,4 @@ to it."
   (delete-other-windows)
   (split-window-right))
 
-(global-set-key (kbd "C-c m") 'mirror)
+(global-set-key (kbd "C-c n") 'mirror)
