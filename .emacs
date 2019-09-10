@@ -330,3 +330,5 @@ to it."
   (split-window-right))
 
 (global-set-key (kbd "C-c n") 'mirror)
+
+(delete-selection-mode 1)
