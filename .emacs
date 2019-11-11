@@ -132,7 +132,7 @@ Return a list of installed packages or nil for every skipped package."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this flycheck dumb-jump)))
+    (git-link minimap json-mode elpy groovy-mode markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this flycheck dumb-jump)))
  '(safe-local-variable-values
    (quote
     ((flycheck-python-pylint-executable . "~/sites/str-prod/env/bin/pylint")))))
@@ -309,9 +309,10 @@ to it."
 (defun set-trace ()
   "Insert a python trace at the cursor"
   (interactive)
-  (insert "import pdb; pdb.set_trace()"))
+  (insert "import ipdb; ipdb.set_trace()"))
 
 (global-set-key (kbd "C-c b") 'magit-blame)
+(put 'upcase-region 'disabled nil)
 
 (setq-default vc-follow-symlinks t)
 
