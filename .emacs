@@ -46,6 +46,9 @@ Return a list of installed packages or nil for every skipped package."
  'whitespace-cleanup-mode
  'nyan-mode
  'git-link
+ 'yaml-mode
+ 'json-mode
+ 'dockerfile-mode
  )
 
 (setq shell-file-name "/bin/bash")
