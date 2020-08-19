@@ -345,6 +345,7 @@ to it."
 (delete-selection-mode 1)
 (put 'downcase-region 'disabled nil)
 
-(add-to-list 'default-frame-alist '(font . "Noto Mono"))
+(add-to-list 'default-frame-alist '(font . "Hack"))
+;; (add-to-list 'default-frame-alist '(font . "Noto Mono"))
 
 (line-number-mode 1)
