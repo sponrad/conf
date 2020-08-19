@@ -51,6 +51,8 @@ Return a list of installed packages or nil for every skipped package."
  'yaml-mode
  'json-mode
  'dockerfile-mode
+ 'dart-mode
+ 'flutter
  )
 
 (setq shell-file-name "/bin/bash")
@@ -141,7 +143,7 @@ Return a list of installed packages or nil for every skipped package."
  '(line-number-mode nil)
  '(package-selected-packages
    (quote
-    (company lsp-dart lsp-treemacs git-link minimap json-mode elpy groovy-mode markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this flycheck dumb-jump)))
+    (flutter dart-mode company lsp-dart lsp-treemacs git-link minimap json-mode elpy groovy-mode markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this flycheck dumb-jump)))
  '(safe-local-variable-values
    (quote
     ((flycheck-python-pylint-executable . "~/sites/str-prod/env/bin/pylint")))))
