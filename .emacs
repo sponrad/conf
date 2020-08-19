@@ -53,6 +53,7 @@ Return a list of installed packages or nil for every skipped package."
  'dockerfile-mode
  'dart-mode
  'flutter
+ 'groovy-mode
  )
 
 (setq shell-file-name "/bin/bash")
@@ -351,3 +352,4 @@ to it."
 ;; (add-to-list 'default-frame-alist '(font . "Noto Mono"))
 
 (line-number-mode 1)
+
