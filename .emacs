@@ -31,6 +31,7 @@ Return a list of installed packages or nil for every skipped package."
  'helm
  'magit
  'zenburn-theme
+ 'monokai-theme
  'web-mode
  'projectile
  'helm-projectile
@@ -128,7 +129,7 @@ Return a list of installed packages or nil for every skipped package."
 (dumb-jump-mode)
 
 ;; theme
-(load-theme 'zenburn t)
+(load-theme 'monokai t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -343,3 +344,5 @@ to it."
 
 (delete-selection-mode 1)
 (put 'downcase-region 'disabled nil)
+
+(add-to-list 'default-frame-alist '(font . "Noto Mono"))
