@@ -346,3 +346,5 @@ to it."
 (put 'downcase-region 'disabled nil)
 
 (add-to-list 'default-frame-alist '(font . "Noto Mono"))
+
+(line-number-mode 1)
