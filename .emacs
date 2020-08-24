@@ -132,6 +132,13 @@ Return a list of installed packages or nil for every skipped package."
 (dumb-jump-mode)
 
 ;; theme
+(use-package monokai-theme
+  :config
+  (setq monokai-height-plus-1 1.0
+        monokai-height-plus-2 1.0
+        monokai-height-plus-3 1.0
+        monokai-height-plus-4 1.0
+        monokai-height-minus-1 1.0))
 (load-theme 'monokai t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -352,4 +359,3 @@ to it."
 ;; (add-to-list 'default-frame-alist '(font . "Noto Mono"))
 
 (line-number-mode 1)
-
