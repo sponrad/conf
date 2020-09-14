@@ -356,3 +356,5 @@ to it."
 ;; (add-to-list 'default-frame-alist '(font . "Noto Mono"))
 
 (line-number-mode 1)
+
+(add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
