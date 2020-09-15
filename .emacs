@@ -127,6 +127,7 @@ Return a list of installed packages or nil for every skipped package."
 
 ;; dumb-jump
 (dumb-jump-mode)
+(add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 
 ;; theme
 (use-package monokai-theme
