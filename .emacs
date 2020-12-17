@@ -144,50 +144,16 @@ Return a list of installed packages or nil for every skipped package."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+   '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(line-number-mode nil)
  '(package-selected-packages
-   (quote
-    (flutter dart-mode company lsp-dart lsp-treemacs git-link minimap json-mode elpy groovy-mode markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this flycheck dumb-jump)))
- '(safe-local-variable-values
-   (quote
-    ((flycheck-python-pylint-executable . "~/sites/str-prod/env/bin/pylint")))))
+   '(flutter dart-mode company lsp-dart lsp-treemacs git-link minimap json-mode elpy groovy-mode markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this dumb-jump)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode)
-  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
-  ;; use local eslint from node_modules before global
-  ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-  (defun my/use-eslint-from-node-modules ()
-    (let* ((root (locate-dominating-file
-                  (or (buffer-file-name) default-directory)
-                  "node_modules"))
-           (eslint (and root
-                        (expand-file-name "node_modules/eslint/bin/eslint.js"
-                                          root))))
-      (when (and eslint (file-executable-p eslint))
-        (setq-local flycheck-javascript-eslint-executable eslint))))
-
-  (defun my/configure-web-mode-flycheck-checkers ()
-    ;; in order to have flycheck enabled in web-mode, add an entry to this
-    ;; cond that matches the web-mode engine/content-type/etc and returns the
-    ;; appropriate checker.
-    (-when-let (checker (cond
-                         ((string= web-mode-content-type "jsx")
-                          'javascript-eslint)))
-      (flycheck-mode)
-      (flycheck-select-checker checker)))
-  ;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-  ;; (add-hook 'web-mode-hook #'my/configure-web-mode-flycheck-checkers)
-  )
 
 (use-package s)
 
@@ -316,7 +282,6 @@ to it."
 
 (load "~/sites/str-prod/unicorn.el")
 
-(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 
 (defun shrug ()
