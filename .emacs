@@ -294,6 +294,13 @@ to it."
   (interactive)
   (insert "import ipdb; ipdb.set_trace()"))
 
+(defun console-log ()
+  "Insert a console log"
+  (interactive)
+  (insert "console.log('');")
+  (beginning-of-line)
+  (search-forward "'"))
+
 (global-set-key (kbd "C-c b") 'magit-blame)
 (put 'upcase-region 'disabled nil)
 
