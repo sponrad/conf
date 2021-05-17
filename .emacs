@@ -147,7 +147,7 @@ Return a list of installed packages or nil for every skipped package."
    '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(line-number-mode nil)
  '(package-selected-packages
-   '(flutter dart-mode company lsp-dart lsp-treemacs git-link minimap json-mode elpy groovy-mode markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this dumb-jump)))
+   '(gdscript-mode csharp-mode flutter dart-mode company lsp-dart lsp-treemacs git-link minimap json-mode elpy groovy-mode markdown-mode dockerfile-mode yaml-mode multiple-cursors zenburn-theme web-mode use-package undo-tree smart-mode-line nyan-mode magit highlight-symbol helm-projectile google-this dumb-jump)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
