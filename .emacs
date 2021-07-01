@@ -114,6 +114,8 @@ Return a list of installed packages or nil for every skipped package."
   (helm-grep-git-1 default-directory (null not-all)))
 
 (global-set-key (kbd "s-g") 'my-helm-grep-do-git-grep)
+(global-set-key (kbd "C-9") 'my-helm-grep-do-git-grep)
+
 
 ;; projectile
 (setq projectile-enable-caching t)
@@ -121,6 +123,7 @@ Return a list of installed packages or nil for every skipped package."
 (global-set-key (kbd "C-x C-p") 'projectile-find-file)
 ;;(define-key projectile-mode-map [?\s-g] 'projectile-grep)
 (define-key projectile-mode-map [?\s-f] 'projectile-find-file)
+(define-key projectile-mode-map [?\C-8] 'projectile-find-file)
 
 ;; helm-projectile
 (helm-projectile-on)
