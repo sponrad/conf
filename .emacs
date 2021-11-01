@@ -334,3 +334,5 @@ to it."
 (line-number-mode 1)
 
 (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
+
+(set-face-attribute 'default nil :height 160)
