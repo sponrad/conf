@@ -645,6 +645,7 @@ suggests some commit message prefixes."
   (spacemacs/set-leader-keys-for-major-mode 'magit-status-mode "oa" 'magit-section-show-level-2-all)
   (spacemacs/declare-prefix "o" "custom")
   (spacemacs/set-leader-keys "oj" 'dumb-jump-go)
+  (setq vc-follow-symlinks t)
   )
 
 
