@@ -20,11 +20,11 @@ This function should only modify configuration layer settings."
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
-   dotspacemacs-enable-lazy-installation 'unused
+   dotspacemacs-enable-lazy-installation nil
 
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
-   dotspacemacs-ask-for-lazy-installation t
+   dotspacemacs-ask-for-lazy-installation nil
 
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
@@ -43,7 +43,7 @@ This function should only modify configuration layer settings."
      emacs-lisp
      git
      helm
-     python
+     ;; python
      html
      ;; lsp
      ;; markdown
@@ -609,7 +609,9 @@ before packages are loaded."
                                       help-mode
                                       git-commit-mode
                                       magit-mode)))
-  ;; (global-set-key (kdb "C-c g") 'magit-section-show-level-2-all)
+  (spacemacs/set-leader-keys-for-major-mode 'magit-status-mode "oa" 'magit-section-show-level-2-all)
+  (spacemacs/declare-prefix "o" "custom")
+  (spacemacs/set-leader-keys "oj" 'dumb-jump-go)
   )
 
 
