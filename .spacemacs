@@ -646,6 +646,7 @@ suggests some commit message prefixes."
   (spacemacs/declare-prefix "o" "custom")
   (spacemacs/set-leader-keys "oj" 'dumb-jump-go)
   (setq vc-follow-symlinks t)
+  (load "~/sites/str-prod/unicorn.el")
   )
 
 
