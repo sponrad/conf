@@ -644,7 +644,7 @@ suggests some commit message prefixes."
 
   (spacemacs/set-leader-keys-for-major-mode 'magit-status-mode "oa" 'magit-section-show-level-2-all)
   (spacemacs/declare-prefix "o" "custom")
-  (spacemacs/set-leader-keys "oj" 'dumb-jump-go)
+  (spacemacs/set-leader-keys "oj" 'xref-find-definitions)
   (setq vc-follow-symlinks t)
   (load "~/sites/str-prod/unicorn.el")
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
