@@ -671,6 +671,11 @@ suggests some commit message prefixes."
     (setq-default web-mode-markup-indent-offset 2)
     (add-hook 'web-mode-hook (lambda () (electric-pair-local-mode 0))))
   (global-company-mode)
+  (custom-set-faces
+   '(hl-line ((t (:height 1.0))))
+   '(org-level-1 ((t (:height 1.0))))
+   '(org-level-2 ((t (:height 1.0))))
+   '(org-level-3 ((t (:height 1.0)))))
   )
 
 
