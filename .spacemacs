@@ -677,6 +677,7 @@ suggests some commit message prefixes."
    '(org-level-1 ((t (:height 1.0))))
    '(org-level-2 ((t (:height 1.0))))
    '(org-level-3 ((t (:height 1.0)))))
+  (setq magit-refresh-verbose t)
   )
 
 
