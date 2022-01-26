@@ -71,7 +71,9 @@ This function should only modify configuration layer settings."
                                       yaml-mode
                                       dart-mode
                                       dockerfile-mode
-                                      markdown-mode)
+                                      markdown-mode
+                                      gdscript-mode
+                                      )
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
