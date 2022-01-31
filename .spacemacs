@@ -251,7 +251,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 15.0
+                               :size 13.0
                                :weight normal
                                :width normal)
 
@@ -703,11 +703,14 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(yasnippet-snippets web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode htmlize simple-httpd helm-css-scss helm-company helm-c-yasnippet haml-mode fuzzy emmet-mode company-web web-completion-data company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete yapfify ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit sphinx-doc spaceline-all-the-icons smeargle restart-emacs request rainbow-delimiters quickrun pytest pyenv-mode pydoc py-isort popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox overseer org-superstar open-junk-file nose nameless multi-line monokai-theme macrostep lorem-ipsum live-py-mode link-hint inspector info+ indent-guide importmagic hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-flx helm-descbinds helm-ag google-translate golden-ratio gitignore-templates git-timemachine git-modes git-messenger git-link forge font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word cython-mode column-enforce-mode clean-aindent-mode centered-cursor-mode blacken auto-highlight-symbol auto-compile anaconda-mode aggressive-indent ace-link ace-jump-helm-line)))
+   '(csharp-mode dockerfile-mode json-mode yaml-mode yasnippet-snippets web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode htmlize simple-httpd helm-css-scss helm-company helm-c-yasnippet haml-mode fuzzy emmet-mode company-web web-completion-data company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete yapfify ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit sphinx-doc spaceline-all-the-icons smeargle restart-emacs request rainbow-delimiters quickrun pytest pyenv-mode pydoc py-isort popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox overseer org-superstar open-junk-file nose nameless multi-line monokai-theme macrostep lorem-ipsum live-py-mode link-hint inspector info+ indent-guide importmagic hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-flx helm-descbinds helm-ag google-translate golden-ratio gitignore-templates git-timemachine git-modes git-messenger git-link forge font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word cython-mode column-enforce-mode clean-aindent-mode centered-cursor-mode blacken auto-highlight-symbol auto-compile anaconda-mode aggressive-indent ace-link ace-jump-helm-line)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(hl-line ((t (:height 1.0))))
+ '(org-level-1 ((t (:height 1.0))))
+ '(org-level-2 ((t (:height 1.0))))
+ '(org-level-3 ((t (:height 1.0)))))
 )
