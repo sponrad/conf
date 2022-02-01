@@ -73,6 +73,7 @@ This function should only modify configuration layer settings."
                                       dockerfile-mode
                                       markdown-mode
                                       gdscript-mode
+                                      real-auto-save
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -686,6 +687,11 @@ suggests some commit message prefixes."
    '(org-level-2 ((t (:height 1.0))))
    '(org-level-3 ((t (:height 1.0)))))
   (setq magit-refresh-verbose t)
+
+  ;; https://github.com/ChillarAnand/real-auto-save
+  (add-hook 'prog-mode-hook 'real-auto-save-mode)
+  (add-hook 'org-mode-hook 'real-auto-save-mode)
+  (setq real-auto-save-interval 1)
   )
 
 
