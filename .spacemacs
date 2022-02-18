@@ -555,6 +555,7 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq confirm-kill-emacs 'y-or-n-p)
   (global-set-key (kbd "C-c w") 'whitespace-mode)
+  (global-set-key (kbd "C-c u") 'global-pop-mark)
   (defun shrug ()
     "Insert a shrugging figure at the cursor"
     (interactive)
