@@ -692,6 +692,7 @@ suggests some commit message prefixes."
   (add-hook 'prog-mode-hook 'real-auto-save-mode)
   (add-hook 'org-mode-hook 'real-auto-save-mode)
   (setq real-auto-save-interval 1)
+  (add-hook 'helm-after-action-hook 'recenter)
   )
 
 
