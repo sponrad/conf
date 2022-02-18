@@ -554,7 +554,6 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq confirm-kill-emacs 'y-or-n-p)
-  (global-set-key (kbd "C-c w") 'whitespace-mode)
   (global-set-key (kbd "C-c u") 'global-pop-mark)
   (defun shrug ()
     "Insert a shrugging figure at the cursor"
@@ -573,25 +572,14 @@ before packages are loaded."
     (beginning-of-line)
     (search-forward "'"))
 
-  (global-set-key (kbd "C-c b") 'magit-blame)
-  (defun git-link-browse ()
-    (interactive)
-    (setq-default git-link-open-in-browser t)
-    (call-interactively 'git-link)
-    (setq-default git-link-open-in-browser nil))
-  (global-set-key (kbd "C-c l") 'git-link)
-  (global-set-key (kbd "C-c j") 'git-link-browse)
-
   (defun mirror ()
     "Mirror the current buffer into two vertical pages"
     (interactive)
     (delete-other-windows)
     (split-window-right))
-
   (global-set-key (kbd "C-c n") 'mirror)
 
   (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
-  (global-set-key (kbd "M-.") 'xref-find-definitions)
 
   (use-package which-func
     :config
@@ -654,8 +642,7 @@ suggests some commit message prefixes."
 
   (spacemacs/set-leader-keys-for-major-mode 'magit-status-mode "oa" 'magit-section-show-level-2-all)
   (spacemacs/declare-prefix "o" "custom")
-  ;; actually `g d` and `g D` seem to be working great instead of this..
-  (spacemacs/set-leader-keys "oj" 'xref-find-definitions)
+
   (setq vc-follow-symlinks t)
   (load "~/sites/str-prod/unicorn.el")
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
@@ -684,6 +671,7 @@ suggests some commit message prefixes."
   (global-company-mode)
   (custom-set-faces
    '(hl-line ((t (:height 1.0))))
+
    '(org-level-1 ((t (:height 1.0))))
    '(org-level-2 ((t (:height 1.0))))
    '(org-level-3 ((t (:height 1.0)))))
