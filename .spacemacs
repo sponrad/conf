@@ -554,7 +554,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq confirm-kill-emacs 'y-or-n-p)
-  (global-set-key (kbd "C-c u") 'pop-global-mark)
+
   (defun shrug ()
     "Insert a shrugging figure at the cursor"
     (interactive)
@@ -578,6 +578,12 @@ before packages are loaded."
     (delete-other-windows)
     (split-window-right))
   (global-set-key (kbd "C-c n") 'mirror)
+
+  (defun pop-global-mark-and-recenter ()
+    "Pop the global mark and recenter the cursor"
+    (interactive)
+    (pop-global-mark)
+    (recenter))
 
   (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
 
@@ -642,6 +648,8 @@ suggests some commit message prefixes."
 
   (spacemacs/set-leader-keys-for-major-mode 'magit-status-mode "oa" 'magit-section-show-level-2-all)
   (spacemacs/declare-prefix "o" "custom")
+  (spacemacs/set-leader-keys "oo" 'pop-global-mark)
+  (spacemacs/set-leader-keys "op" 'pop-global-mark-and-recenter)
 
   (setq vc-follow-symlinks t)
   (load "~/sites/str-prod/unicorn.el")
