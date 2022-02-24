@@ -386,7 +386,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling t
+   dotspacemacs-smooth-scrolling nil
 
    ;; Show the scroll bar while scrolling. The auto hide time can be configured
    ;; by setting this variable to a number. (default t)
@@ -579,12 +579,6 @@ before packages are loaded."
     (split-window-right))
   (global-set-key (kbd "C-c n") 'mirror)
 
-  (defun pop-global-mark-and-recenter ()
-    "Pop the global mark and recenter the cursor"
-    (interactive)
-    (pop-global-mark)
-    (recenter))
-
   (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
 
   (use-package which-func
@@ -649,7 +643,6 @@ suggests some commit message prefixes."
   (spacemacs/set-leader-keys-for-major-mode 'magit-status-mode "oa" 'magit-section-show-level-2-all)
   (spacemacs/declare-prefix "o" "custom")
   (spacemacs/set-leader-keys "oo" 'pop-global-mark)
-  (spacemacs/set-leader-keys "op" 'pop-global-mark-and-recenter)
 
   (setq vc-follow-symlinks t)
   (load "~/sites/str-prod/unicorn.el")
@@ -689,7 +682,6 @@ suggests some commit message prefixes."
   (add-hook 'prog-mode-hook 'real-auto-save-mode)
   (add-hook 'org-mode-hook 'real-auto-save-mode)
   (setq real-auto-save-interval 1)
-  (add-hook 'helm-after-action-hook 'recenter)
   )
 
 
