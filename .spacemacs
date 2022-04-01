@@ -666,6 +666,9 @@ suggests some commit message prefixes."
             ("php" . "\\.php")))
     (setq web-mode-content-types-alist
           '(("jsx"  . "\\.jsx")))
+    (setq web-mode-comment-formats '(("typescript" . "//")
+                                     ("jsx" . "//")
+                                     ("javascript" . "//")))
     (define-key web-mode-map (kbd "C-;") nil)
     (setq-default web-mode-markup-indent-offset 2)
     (add-hook 'web-mode-hook (lambda () (electric-pair-local-mode 0))))
