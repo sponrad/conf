@@ -684,7 +684,7 @@ suggests some commit message prefixes."
   ;; https://github.com/ChillarAnand/real-auto-save
   (add-hook 'prog-mode-hook 'real-auto-save-mode)
   (add-hook 'org-mode-hook 'real-auto-save-mode)
-  (setq real-auto-save-interval 1)
+  (setq real-auto-save-interval 5)
   )
 
 
