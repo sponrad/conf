@@ -685,6 +685,10 @@ suggests some commit message prefixes."
   (add-hook 'prog-mode-hook 'real-auto-save-mode)
   (add-hook 'org-mode-hook 'real-auto-save-mode)
   (setq real-auto-save-interval 5)
+
+  ;; https://www.reddit.com/r/emacs/comments/tejte0/comment/i1t8rn0/?utm_source=share&utm_medium=web2x&context=3
+  ;; Prevent undo tree files from polluting your git repo
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
   )
 
 
