@@ -75,6 +75,8 @@ This function should only modify configuration layer settings."
                                       gdscript-mode
                                       real-auto-save
                                       all-the-icons
+                                      eglot
+                                      project
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -696,6 +698,9 @@ suggests some commit message prefixes."
   ;; https://www.reddit.com/r/emacs/comments/tejte0/comment/i1t8rn0/?utm_source=share&utm_medium=web2x&context=3
   ;; Prevent undo tree files from polluting your git repo
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+
+  ;; npm install -g pyright
+  (add-hook 'python-mode-hook 'eglot-ensure)
   )
 
 
