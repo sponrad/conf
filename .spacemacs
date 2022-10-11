@@ -696,6 +696,10 @@ suggests some commit message prefixes."
   ;; https://www.reddit.com/r/emacs/comments/tejte0/comment/i1t8rn0/?utm_source=share&utm_medium=web2x&context=3
   ;; Prevent undo tree files from polluting your git repo
   (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+  ;; fill column not working here, others work
+  ;; (setq fill-column 88)
+  ;; (setq column-enforce-column 88)
+  ;; (setq whitespace-line-column 88)
   )
 
 
