@@ -700,6 +700,7 @@ suggests some commit message prefixes."
   ;; (setq fill-column 88)
   ;; (setq column-enforce-column 88)
   ;; (setq whitespace-line-column 88)
+  (define-key evil-motion-state-map (kbd "C-e") 'move-end-of-line)
   )
 
 
