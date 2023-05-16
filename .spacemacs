@@ -727,6 +727,11 @@ suggests some commit message prefixes."
   ;; (setq column-enforce-column 88)
   ;; (setq whitespace-line-column 88)
   (define-key evil-motion-state-map (kbd "C-e") 'move-end-of-line)
+
+  ;; inside git repos dumb jump defaults to git grep and the command was not finding results
+  ;; so force ripgrep
+  (setq dumb-jump-force-searcher 'rg)
+
   )
 
 
