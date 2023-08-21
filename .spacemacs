@@ -57,7 +57,17 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
-     treemacs)
+     ;; treemacs
+     (typescript :variables
+                 typescript-backend 'tide
+                 typescript-fmt-tool 'prettier
+                 typescript-indent-level 2
+                 typescript-linter 'eslint)
+     ;; (javascript :variables
+     ;;             javascript-backend 'tide
+     ;;             javascript-fmt-tool 'prettier
+     ;;             node-add-modules-path t)
+     )
 
 
    ;; List of additional packages that will be installed without being wrapped
@@ -706,6 +716,8 @@ suggests some commit message prefixes."
     (setq-default web-mode-markup-indent-offset 2)
     (add-hook 'web-mode-hook (lambda () (electric-pair-local-mode 0))))
   (global-company-mode)
+  ;; (add-hook 'web-mode-hook 'flycheck-mode)
+  (add-hook 'typescript-mode-hook 'flycheck-mode)
   (custom-set-faces
    '(hl-line ((t (:height 1.0))))
 
@@ -731,6 +743,12 @@ suggests some commit message prefixes."
   ;; inside git repos dumb jump defaults to git grep and the command was not finding results
   ;; so force ripgrep
   (setq dumb-jump-force-searcher 'rg)
+
+  (setq js-indent-level 2)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-attr-indent-offset 2)
+  (setq web-mode-attr-value-indent-offset 2)
 
   )
 
