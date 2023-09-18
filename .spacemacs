@@ -745,10 +745,10 @@ suggests some commit message prefixes."
   (setq dumb-jump-force-searcher 'rg)
 
   (setq js-indent-level 2)
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-attr-indent-offset 2)
-  (setq web-mode-attr-value-indent-offset 2)
+  (setq web-mode-markup-indent-offset js-indent-level)
+  (setq web-mode-code-indent-offset js-indent-level)
+  (setq web-mode-attr-indent-offset js-indent-level)
+  (setq web-mode-attr-value-indent-offset js-indent-level)
 
   )
 
