@@ -55,14 +55,18 @@ This function should only modify configuration layer settings."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
+     syntax-checking
      ;; version-control
      ;; treemacs
      (typescript :variables
-                 typescript-backend 'tide
+                 typescript-backend 'lsp
                  typescript-fmt-tool 'prettier
+                 ;; tide-tsserver-executable "/Users/sponrad/.nvm/versions/node/v20.10.0/bin/tsserver"
+                 ;; typescript-fmt-on-save t
                  typescript-indent-level 2
                  typescript-linter 'eslint)
+     (javascript :variables
+                 node-add-modules-path t)
      ;; (javascript :variables
      ;;             javascript-backend 'tide
      ;;             javascript-fmt-tool 'prettier
