@@ -58,6 +58,9 @@ This function should only modify configuration layer settings."
      syntax-checking
      ;; version-control
      ;; treemacs
+     (go :variables
+         go-tab-width 4
+         )
      (typescript :variables
                  typescript-backend 'lsp
                  typescript-fmt-tool 'prettier
@@ -94,6 +97,7 @@ This function should only modify configuration layer settings."
                                       csharp-mode
                                       nginx-mode
                                       sqlite3
+                                      terraform-mode
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -753,6 +757,17 @@ suggests some commit message prefixes."
   (setq web-mode-code-indent-offset js-indent-level)
   (setq web-mode-attr-indent-offset js-indent-level)
   (setq web-mode-attr-value-indent-offset js-indent-level)
+
+  (defun clear-undo-tree ()
+    (interactive)
+    (setq buffer-undo-tree nil))
+
+  ;; (when (memq window-system '(mac ns x))
+  ;;   (exec-path-from-shell-initialize))
+  (add-to-list 'exec-path "/Users/sponrad/.nvm/versions/node/v20.10.0/bin/" t)
+
+  ;; .env.local etc
+  (add-to-list 'auto-mode-alist '("\\.env\\..*\\'" . dotenv-mode))
 
   )
 
