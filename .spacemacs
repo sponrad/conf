@@ -763,6 +763,13 @@ suggests some commit message prefixes."
     (interactive)
     (setq buffer-undo-tree nil))
 
+  (defun bc-yarn-fix ()
+    "Run 'yarn fix' command in /Users/sponrad/repos/bookclub/next directory."
+    (interactive)
+    (let ((default-directory "/Users/sponrad/repos/bookclub/next"))
+      (shell-command "yarn fix")))
+  (spacemacs/set-leader-keys "of" 'bc-yarn-fix)
+
   ;; (when (memq window-system '(mac ns x))
   ;;   (exec-path-from-shell-initialize))
   (add-to-list 'exec-path "/Users/sponrad/.nvm/versions/node/v20.10.0/bin/" t)
