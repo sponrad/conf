@@ -45,7 +45,10 @@ This function should only modify configuration layer settings."
      helm
      ;; python
      html
-     lsp
+     (lsp :variables
+          ;; lsp-headerline-breadcrumb-enable nil
+          lsp-headerline-breadcrumb-segments '(symbols)
+          )
      ;; markdown
      multiple-cursors
      ;; spacemacs-misc
