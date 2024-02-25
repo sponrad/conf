@@ -45,7 +45,7 @@ This function should only modify configuration layer settings."
      helm
      ;; python
      html
-     ;; lsp
+     lsp
      ;; markdown
      multiple-cursors
      ;; spacemacs-misc
@@ -63,13 +63,14 @@ This function should only modify configuration layer settings."
          )
      (typescript :variables
                  typescript-backend 'lsp
-                 typescript-fmt-tool 'prettier
+                 typescript-fmt-tool 'eslint
                  ;; tide-tsserver-executable "/Users/sponrad/.nvm/versions/node/v20.10.0/bin/tsserver"
                  ;; typescript-fmt-on-save t
                  typescript-indent-level 2
                  typescript-linter 'eslint)
      (javascript :variables
                  node-add-modules-path t)
+     ;; react
      ;; (javascript :variables
      ;;             javascript-backend 'tide
      ;;             javascript-fmt-tool 'prettier
@@ -768,6 +769,13 @@ suggests some commit message prefixes."
 
   ;; .env.local etc
   (add-to-list 'auto-mode-alist '("\\.env\\..*\\'" . dotenv-mode))
+
+  ;; https://github.com/flycheck/flycheck/issues/1834#issuecomment-931080345
+  ;; prevent lsp from stomping on flycheck syntax checkers
+  (use-package lsp-mode
+    :ensure t
+    :custom
+    (lsp-diagnostics-provider :none))
 
   )
 
