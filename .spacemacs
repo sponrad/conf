@@ -771,7 +771,15 @@ suggests some commit message prefixes."
     (interactive)
     (let ((default-directory "/Users/sponrad/repos/bookclub/next"))
       (shell-command "yarn fix")))
-  (spacemacs/set-leader-keys "of" 'bc-yarn-fix)
+  (spacemacs/set-leader-keys "oF" 'bc-yarn-fix)
+
+  (defun bc-yarn-fix-current-file ()
+    "Run 'yarn fix' command in on the current buffer's file."
+    (interactive)
+    (let ((default-directory "/Users/sponrad/repos/bookclub/next"))
+      (shell-command (concat "npx eslint --fix -f summary " (buffer-file-name)))))
+  (spacemacs/set-leader-keys "of" 'bc-yarn-fix-current-file)
+
 
   ;; (when (memq window-system '(mac ns x))
   ;;   (exec-path-from-shell-initialize))
