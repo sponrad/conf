@@ -65,9 +65,10 @@ This function should only modify configuration layer settings."
          go-tab-width 4
          )
      (typescript :variables
-                 typescript-backend 'lsp
+                 ;; typescript-backend 'lsp
+                 typescript-backend 'tide
+                 tide-tsserver-executable "/Users/sponrad/repos/bookclub/next/node_modules/typescript/bin/tsserver"
                  typescript-fmt-tool 'eslint
-                 ;; tide-tsserver-executable "/Users/sponrad/.nvm/versions/node/v20.10.0/bin/tsserver"
                  ;; typescript-fmt-on-save t
                  typescript-indent-level 2
                  typescript-linter 'eslint)
