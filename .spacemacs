@@ -44,6 +44,7 @@ This function should only modify configuration layer settings."
      git
      helm
      ;; python
+     (python :variables python-backend 'anaconda)
      html
      (lsp :variables
           ;; lsp-headerline-breadcrumb-enable nil
@@ -306,7 +307,7 @@ It should only modify the values of Spacemacs settings."
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
                                :size 13.0
-                               :weight normal
+                               :weight medium
                                :width normal)
 
    ;; The leader key (default "SPC")
@@ -623,10 +624,15 @@ before packages are loaded."
     (interactive)
     (insert "¯\\_(ツ)_/¯"))
 
-  (defun set-trace ()
+  (defun set-itrace ()
     "Insert a python trace at the cursor"
     (interactive)
     (insert "import ipdb; ipdb.set_trace()"))
+
+  (defun set-trace ()
+    "Insert a python trace at the cursor"
+    (interactive)
+    (insert "import pdb; pdb.set_trace()"))
 
   (defun console-log ()
     "Insert a console log"
@@ -668,11 +674,11 @@ before packages are loaded."
                                       text-mode
                                       fundamental-mode
                                       help-mode
-                                      git-commit-mode
-                                      magit-mode)))
-  (use-package git-commit
-	  :bind
-	  ("C-c C-e" . m/suggest-commit-message-prefix))
+                                      magit-mode
+                                      git-commit-mode)))
+
+
+  (global-set-key (kbd "C-c C-e") 'm/suggest-commit-message-prefix)
 
   (defun m/suggest-commit-message-prefix ()
     "Looks at recent commits for the currently staged files and
