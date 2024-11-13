@@ -107,10 +107,6 @@ This function should only modify configuration layer settings."
      sqlite3
      editorconfig
      jsonrpc
-     (copilot :location (recipe
-                         :fetcher github
-                         :repo "copilot-emacs/copilot.el"
-                         :files ("*.el" "dist")))
      ;; company-box
      )
 
