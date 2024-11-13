@@ -44,7 +44,7 @@ This function should only modify configuration layer settings."
      git
      helm
      ;; python
-     (python :variables python-backend 'anaconda)
+     (python :variables python-backend 'lsp python-lsp-server 'pyright)
      html
      (lsp :variables
           ;; lsp-headerline-breadcrumb-enable nil
@@ -68,7 +68,8 @@ This function should only modify configuration layer settings."
      (typescript :variables
                  ;; typescript-backend 'lsp
                  typescript-backend 'tide
-                 tide-tsserver-executable "/Users/sponrad/repos/bookclub/next/node_modules/typescript/bin/tsserver"
+                 ;; tide-tsserver-executable "/Users/sponrad/repos/bookclub/next/node_modules/typescript/bin/tsserver"
+                 ;; tide-tsserver-executable "/Users/sponrad/repos/bookclub/node_modules/typescript/bin/tsserver"
                  typescript-fmt-tool 'eslint
                  ;; typescript-fmt-on-save t
                  typescript-indent-level 2
@@ -592,7 +593,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -600,7 +601,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -608,7 +609,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -647,6 +648,7 @@ before packages are loaded."
     (delete-other-windows)
     (split-window-right))
   (global-set-key (kbd "C-c n") 'mirror)
+  (spacemacs/set-leader-keys "om" 'mirror)
 
   (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
 
@@ -674,8 +676,7 @@ before packages are loaded."
                                       text-mode
                                       fundamental-mode
                                       help-mode
-                                      magit-mode
-                                      git-commit-mode)))
+                                      magit-mode)))
 
 
   (global-set-key (kbd "C-c C-e") 'm/suggest-commit-message-prefix)
@@ -809,9 +810,19 @@ suggests some commit message prefixes."
     :custom
     (lsp-diagnostics-provider :none))
 
+  ;; turn off squiggle lines for TODOs and other fixes in breadcrumb
+  (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
+
   ;; (require 'company-box)
   ;; (add-hook 'company-mode-hook 'company-box-mode)
 
+  (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode)
+  (setq ahs-idle-interval 0.75)
+
+  ;; lsp-file-watch-ignored-directories
+  (add-to-list 'lsp-file-watch-ignored-directories "str-prod")
+  (with-eval-after-load 'lsp-mode
+    (add-to-list 'lsp-file-watch-ignored "[/\\\\]str-prod$"))
   )
 
 
@@ -822,102 +833,102 @@ suggests some commit message prefixes."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(connection-local-criteria-alist
-   '(((:application tramp :machine "localhost")
-      tramp-connection-local-darwin-ps-profile)
-     ((:application tramp :machine "mbp.local")
-      tramp-connection-local-darwin-ps-profile)
-     ((:application tramp)
-      tramp-connection-local-default-system-profile tramp-connection-local-default-shell-profile)))
- '(connection-local-profile-alist
-   '((tramp-connection-local-darwin-ps-profile
-      (tramp-process-attributes-ps-args "-acxww" "-o" "pid,uid,user,gid,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state=abcde" "-o" "ppid,pgid,sess,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etime,pcpu,pmem,args")
-      (tramp-process-attributes-ps-format
-       (pid . number)
-       (euid . number)
-       (user . string)
-       (egid . number)
-       (comm . 52)
-       (state . 5)
-       (ppid . number)
-       (pgrp . number)
-       (sess . number)
-       (ttname . string)
-       (tpgid . number)
-       (minflt . number)
-       (majflt . number)
-       (time . tramp-ps-time)
-       (pri . number)
-       (nice . number)
-       (vsize . number)
-       (rss . number)
-       (etime . tramp-ps-time)
-       (pcpu . number)
-       (pmem . number)
-       (args)))
-     (tramp-connection-local-busybox-ps-profile
-      (tramp-process-attributes-ps-args "-o" "pid,user,group,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "stat=abcde" "-o" "ppid,pgid,tty,time,nice,etime,args")
-      (tramp-process-attributes-ps-format
-       (pid . number)
-       (user . string)
-       (group . string)
-       (comm . 52)
-       (state . 5)
-       (ppid . number)
-       (pgrp . number)
-       (ttname . string)
-       (time . tramp-ps-time)
-       (nice . number)
-       (etime . tramp-ps-time)
-       (args)))
-     (tramp-connection-local-bsd-ps-profile
-      (tramp-process-attributes-ps-args "-acxww" "-o" "pid,euid,user,egid,egroup,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state,ppid,pgid,sid,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etimes,pcpu,pmem,args")
-      (tramp-process-attributes-ps-format
-       (pid . number)
-       (euid . number)
-       (user . string)
-       (egid . number)
-       (group . string)
-       (comm . 52)
-       (state . string)
-       (ppid . number)
-       (pgrp . number)
-       (sess . number)
-       (ttname . string)
-       (tpgid . number)
-       (minflt . number)
-       (majflt . number)
-       (time . tramp-ps-time)
-       (pri . number)
-       (nice . number)
-       (vsize . number)
-       (rss . number)
-       (etime . number)
-       (pcpu . number)
-       (pmem . number)
-       (args)))
-     (tramp-connection-local-default-shell-profile
-      (shell-file-name . "/bin/sh")
-      (shell-command-switch . "-c"))
-     (tramp-connection-local-default-system-profile
-      (path-separator . ":")
-      (null-device . "/dev/null"))))
- '(evil-want-Y-yank-to-eol nil)
- '(package-selected-packages
-   '(dap-mode lsp-docker bui tern terraform-mode nginx-mode python-mode csharp-mode dockerfile-mode json-mode yaml-mode yasnippet-snippets web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode htmlize simple-httpd helm-css-scss helm-company helm-c-yasnippet haml-mode fuzzy emmet-mode company-web web-completion-data company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete yapfify ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit sphinx-doc spaceline-all-the-icons smeargle restart-emacs request rainbow-delimiters quickrun pytest pyenv-mode pydoc py-isort popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox overseer org-superstar open-junk-file nose nameless multi-line monokai-theme macrostep lorem-ipsum live-py-mode link-hint inspector info+ indent-guide importmagic hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-flx helm-descbinds helm-ag google-translate golden-ratio gitignore-templates git-timemachine git-modes git-messenger git-link forge font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word cython-mode column-enforce-mode clean-aindent-mode centered-cursor-mode blacken auto-highlight-symbol auto-compile anaconda-mode aggressive-indent ace-link ace-jump-helm-line)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)
- '(hl-line ((t (:height 1.0))))
- '(org-level-1 ((t (:height 1.0))))
- '(org-level-2 ((t (:height 1.0))))
- '(org-level-3 ((t (:height 1.0)))))
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(connection-local-criteria-alist
+     '(((:application tramp :machine "localhost")
+        tramp-connection-local-darwin-ps-profile)
+       ((:application tramp :machine "mbp.local")
+        tramp-connection-local-darwin-ps-profile)
+       ((:application tramp)
+        tramp-connection-local-default-system-profile tramp-connection-local-default-shell-profile)))
+   '(connection-local-profile-alist
+     '((tramp-connection-local-darwin-ps-profile
+        (tramp-process-attributes-ps-args "-acxww" "-o" "pid,uid,user,gid,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state=abcde" "-o" "ppid,pgid,sess,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etime,pcpu,pmem,args")
+        (tramp-process-attributes-ps-format
+         (pid . number)
+         (euid . number)
+         (user . string)
+         (egid . number)
+         (comm . 52)
+         (state . 5)
+         (ppid . number)
+         (pgrp . number)
+         (sess . number)
+         (ttname . string)
+         (tpgid . number)
+         (minflt . number)
+         (majflt . number)
+         (time . tramp-ps-time)
+         (pri . number)
+         (nice . number)
+         (vsize . number)
+         (rss . number)
+         (etime . tramp-ps-time)
+         (pcpu . number)
+         (pmem . number)
+         (args)))
+       (tramp-connection-local-busybox-ps-profile
+        (tramp-process-attributes-ps-args "-o" "pid,user,group,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "stat=abcde" "-o" "ppid,pgid,tty,time,nice,etime,args")
+        (tramp-process-attributes-ps-format
+         (pid . number)
+         (user . string)
+         (group . string)
+         (comm . 52)
+         (state . 5)
+         (ppid . number)
+         (pgrp . number)
+         (ttname . string)
+         (time . tramp-ps-time)
+         (nice . number)
+         (etime . tramp-ps-time)
+         (args)))
+       (tramp-connection-local-bsd-ps-profile
+        (tramp-process-attributes-ps-args "-acxww" "-o" "pid,euid,user,egid,egroup,comm=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" "-o" "state,ppid,pgid,sid,tty,tpgid,minflt,majflt,time,pri,nice,vsz,rss,etimes,pcpu,pmem,args")
+        (tramp-process-attributes-ps-format
+         (pid . number)
+         (euid . number)
+         (user . string)
+         (egid . number)
+         (group . string)
+         (comm . 52)
+         (state . string)
+         (ppid . number)
+         (pgrp . number)
+         (sess . number)
+         (ttname . string)
+         (tpgid . number)
+         (minflt . number)
+         (majflt . number)
+         (time . tramp-ps-time)
+         (pri . number)
+         (nice . number)
+         (vsize . number)
+         (rss . number)
+         (etime . number)
+         (pcpu . number)
+         (pmem . number)
+         (args)))
+       (tramp-connection-local-default-shell-profile
+        (shell-file-name . "/bin/sh")
+        (shell-command-switch . "-c"))
+       (tramp-connection-local-default-system-profile
+        (path-separator . ":")
+        (null-device . "/dev/null"))))
+   '(evil-want-Y-yank-to-eol nil)
+   '(package-selected-packages
+     '(dap-mode lsp-docker bui tern terraform-mode nginx-mode python-mode csharp-mode dockerfile-mode json-mode yaml-mode yasnippet-snippets web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode prettier-js impatient-mode htmlize simple-httpd helm-css-scss helm-company helm-c-yasnippet haml-mode fuzzy emmet-mode company-web web-completion-data company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete yapfify ws-butler writeroom-mode winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org symon symbol-overlay string-inflection string-edit sphinx-doc spaceline-all-the-icons smeargle restart-emacs request rainbow-delimiters quickrun pytest pyenv-mode pydoc py-isort popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox overseer org-superstar open-junk-file nose nameless multi-line monokai-theme macrostep lorem-ipsum live-py-mode link-hint inspector info+ indent-guide importmagic hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-flx helm-descbinds helm-ag google-translate golden-ratio gitignore-templates git-timemachine git-modes git-messenger git-link forge font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish define-word cython-mode column-enforce-mode clean-aindent-mode centered-cursor-mode blacken auto-highlight-symbol auto-compile anaconda-mode aggressive-indent ace-link ace-jump-helm-line)))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)
+   '(hl-line ((t (:height 1.0))))
+   '(org-level-1 ((t (:height 1.0))))
+   '(org-level-2 ((t (:height 1.0))))
+   '(org-level-3 ((t (:height 1.0)))))
+  )
