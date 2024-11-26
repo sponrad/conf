@@ -44,7 +44,13 @@ This function should only modify configuration layer settings."
      git
      helm
      ;; python
-     (python :variables python-backend 'lsp python-lsp-server 'pyright)
+     ;; (python :variables python-backend 'lsp python-lsp-server 'pyright)
+     (python :variables
+             python-backend 'lsp
+             pyvenv-tracking-mode nil
+             python-auto-set-local-pyvenv-virtualenv nil
+             python-auto-set-local-pyenv-version nil
+             )
      html
      (lsp :variables
           ;; lsp-headerline-breadcrumb-enable nil
@@ -62,9 +68,6 @@ This function should only modify configuration layer settings."
      syntax-checking
      ;; version-control
      ;; treemacs
-     (go :variables
-         go-tab-width 4
-         )
      (typescript :variables
                  ;; typescript-backend 'lsp
                  typescript-backend 'tide
@@ -114,7 +117,10 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(org-superstar)
+   dotspacemacs-excluded-packages '(
+                                    org-superstar
+                                    yasnippet
+                                    )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -711,7 +717,7 @@ suggests some commit message prefixes."
   (spacemacs/set-leader-keys "oo" 'pop-global-mark)
 
   (setq vc-follow-symlinks t)
-  (load "~/sites/str-prod/unicorn.el")
+  ;; (load "~/sites/str-prod/unicorn.el")
   (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
@@ -788,13 +794,13 @@ suggests some commit message prefixes."
     "Run 'yarn fix' command in on the current buffer's file."
     (interactive)
     (let ((default-directory "/Users/sponrad/repos/bookclub/next"))
-      (shell-command (concat "npx eslint --fix -f summary '" (buffer-file-name) "'"))))
+      (shell-command (concat "npx eslint --fix '" (buffer-file-name) "'"))))
   (spacemacs/set-leader-keys "of" 'bc-yarn-fix-current-file)
 
 
   ;; (when (memq window-system '(mac ns x))
   ;;   (exec-path-from-shell-initialize))
-  (add-to-list 'exec-path "/Users/sponrad/.nvm/versions/node/v20.10.0/bin/" t)
+  (add-to-list 'exec-path "/Users/sponrad/.nvm/versions/node/v20.16.0/bin/" t)
 
   ;; .env.local etc
   (add-to-list 'auto-mode-alist '("\\.env\\..*\\'" . dotenv-mode))
@@ -819,6 +825,8 @@ suggests some commit message prefixes."
   (add-to-list 'lsp-file-watch-ignored-directories "str-prod")
   (with-eval-after-load 'lsp-mode
     (add-to-list 'lsp-file-watch-ignored "[/\\\\]str-prod$"))
+
+  ;; end-user-config
   )
 
 
