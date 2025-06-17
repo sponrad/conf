@@ -44,13 +44,13 @@ This function should only modify configuration layer settings."
      git
      helm
      ;; python
-     ;; (python :variables python-backend 'lsp python-lsp-server 'pyright)
-     (python :variables
-             python-backend 'lsp
-             pyvenv-tracking-mode nil
-             python-auto-set-local-pyvenv-virtualenv nil
-             python-auto-set-local-pyenv-version nil
-             )
+     (python :variables python-backend 'lsp python-lsp-server 'pyright)
+     ;; (python :variables
+     ;;         python-backend 'lsp
+     ;;         pyvenv-tracking-mode nil
+     ;;         python-auto-set-local-pyvenv-virtualenv nil
+     ;;         python-auto-set-local-pyenv-version nil
+     ;;         )
      html
      (lsp :variables
           ;; lsp-headerline-breadcrumb-enable nil
@@ -110,6 +110,8 @@ This function should only modify configuration layer settings."
      sqlite3
      editorconfig
      jsonrpc
+     mermaid-mode
+     systemd-mode
      ;; company-box
      )
 
@@ -652,6 +654,20 @@ before packages are loaded."
   (global-set-key (kbd "C-c n") 'mirror)
   (spacemacs/set-leader-keys "om" 'mirror)
 
+  (defun close-stale-file-buffers ()
+    "Kill all file-visiting buffers whose files have changed on disk."
+    (interactive)
+    (let ((count 0))
+      (dolist (buf (buffer-list))
+        (with-current-buffer buf
+          (let ((filename (buffer-file-name)))
+            (when (and filename
+                       (not (verify-visited-file-modtime buf))) ; file changed on disk
+              (kill-buffer buf)
+              (setq count (1+ count))))))
+      (message "Closed %d stale file buffer(s)" count)))
+  (spacemacs/set-leader-keys "os" 'close-stale-file-buffers)
+
   (add-to-list 'auto-mode-alist '("zshrc" . shell-script-mode))
 
   (use-package which-func
@@ -807,10 +823,10 @@ suggests some commit message prefixes."
 
   ;; https://github.com/flycheck/flycheck/issues/1834#issuecomment-931080345
   ;; prevent lsp from stomping on flycheck syntax checkers
-  (use-package lsp-mode
-    :ensure t
-    :custom
-    (lsp-diagnostics-provider :none))
+  ;; (use-package lsp-mode
+  ;;   :ensure t
+  ;;   :custom
+  ;;   (lsp-diagnostics-provider :none))
 
   ;; turn off squiggle lines for TODOs and other fixes in breadcrumb
   (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
@@ -826,6 +842,19 @@ suggests some commit message prefixes."
   (with-eval-after-load 'lsp-mode
     (add-to-list 'lsp-file-watch-ignored "[/\\\\]str-prod$"))
 
+  ;; i think this disables lsp hooks or _something_, its faster than alien or hybrid
+  ;; when it should otherwise be slower than them
+  ;; (setq projectile-indexing-method 'native)
+
+  (with-eval-after-load 'lsp-mode
+    (setq lsp-idle-delay 0.5) ; Wait 0.5s before sending changes to Pyright
+    (lsp-register-custom-settings
+     '(("python.analysis.diagnosticRules.reportAttributeAccessIssue" "warning" t)
+       ("python.analysis.diagnosticRules.reportOptionalMemberAccess" "warning" t))))
+
+  (with-eval-after-load 'company
+    (setq company-idle-delay 0.3  ; Delay before showing completions
+          company-minimum-prefix-length 2))  ; Require 2 characters
   ;; end-user-config
   )
 
