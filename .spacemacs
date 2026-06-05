@@ -44,7 +44,12 @@ This function should only modify configuration layer settings."
      git
      helm
      ;; python
-     (python :variables python-backend 'lsp python-lsp-server 'pyright)
+     (python :variables
+             python-backend 'lsp
+             python-lsp-server 'pyright
+             ;; files open much faster without this
+             python-auto-set-local-pyenv-version nil
+             )
      ;; (python :variables
      ;;         python-backend 'lsp
      ;;         pyvenv-tracking-mode nil
