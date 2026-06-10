@@ -1,0 +1,28 @@
+#
+# Defines environment variables.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi
+
+# pyenv: shims on PATH only (skip slow `pyenv init -` eval, ~0.09s).
+# python/pip resolve to pyenv versions; `pyenv shell`/prompt-hook dropped.
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PATH"
+
+# nvm: lazy-load (~0.26s saved). Real nvm sourced on first node/npm/npx/nvm call.
+export NVM_DIR="$HOME/.nvm"
+_load_nvm() { unset -f nvm node npm npx 2>/dev/null; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; }
+nvm()  { _load_nvm; nvm "$@"; }
+node() { _load_nvm; node "$@"; }
+npm()  { _load_nvm; npm "$@"; }
+npx()  { _load_nvm; npx "$@"; }
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/google-cloud-sdk/bin:$PATH"
+export VISUAL=vi

@@ -1,0 +1,40 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
+[[ $- != *i* ]] && return
+# the -n is so that tmux only auto runs in iterm
+[[ -z "$TMUX" ]] && [[ -n "$ITERM_SESSION_ID" ]] && exec tmux new -As0
+
+promptinit
+prompt kylewest
+
+set +o noclobber
+
+source <(fzf --zsh)
+
+# do path sourcing in zshenv!
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+alias rm=\rm
+
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+# source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+# source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+# chruby ruby-3.4.1
+
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+
+# source <(~/repos/booktalk/scripts/bt_worktree.sh completion zsh)
+# alias bt_worktree.sh=~/repos/booktalk/scripts/bt_worktree.sh
+source <(~/repos/booktalk/scripts/bt_worktree.sh setup)
