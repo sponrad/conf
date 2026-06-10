@@ -1,1 +1,6 @@
-# [TO THE FILE](https://github.com/sponrad/emacs/blob/master/.emacs)
+I'm a simple man
+
+```bash
+git clone git@github.com:sponrad/conf.git ~/repos/conf
+~/repos/conf/setup.sh
+```
