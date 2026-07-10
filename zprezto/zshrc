@@ -38,3 +38,8 @@ export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
 # source <(~/repos/booktalk/scripts/bt_worktree.sh completion zsh)
 # alias bt_worktree.sh=~/repos/booktalk/scripts/bt_worktree.sh
 source <(~/repos/booktalk/scripts/bt_worktree.sh setup)
+
+export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
+export KUBECONFIG="${KUBECONFIG:+${KUBECONFIG}:}/Users/sponrad/.kube/csmr/cashmere.yaml:/Users/sponrad/.kube/csmr/cashmere-test.yaml"
+# alias k=kubectl
+# changed that to a symlink, ln -s /opt/homebrew/bin/kubectl /usr/local/bin/k
