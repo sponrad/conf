@@ -852,6 +852,10 @@ suggests some commit message prefixes."
   (with-eval-after-load 'company
     (setq company-idle-delay 0.3  ; Delay before showing completions
           company-minimum-prefix-length 2))  ; Require 2 characters
+
+  (with-eval-after-load 'transient
+    (add-to-list 'transient-values '(magit-fetch "--prune")))
+
   ;; end-user-config
   )
 
