@@ -856,6 +856,34 @@ suggests some commit message prefixes."
   (with-eval-after-load 'transient
     (add-to-list 'transient-values '(magit-fetch "--prune")))
 
+  (defun magit-tidy-branch ()
+    "Fetch all remotes with prune, delete local branches whose upstream is gone,
+  then rebase the current branch onto its push branch."
+    (interactive)
+    (require 'magit)
+    (let ((default-directory (magit-toplevel)))
+      ;; f a (with --prune explicit, so it does not depend on fetch.prune config)
+      (magit-run-git "fetch" "--all" "--prune")
+      ;; local branches whose upstream the prune removed
+      (let* ((current (magit-get-current-branch))
+             (gone (delq nil
+                         (mapcar
+                          (lambda (line)
+                            (pcase-let ((`(,branch ,track) (split-string line "\t")))
+                              (and (equal track "[gone]")
+                                   (not (equal branch current))
+                                   branch)))
+                          (magit-git-lines "for-each-ref"
+                                           "--format=%(refname:short)\t%(upstream:track)"
+                                           "refs/heads")))))
+        (when (and gone
+                   (y-or-n-p (format "Delete %d gone branch(es): %s? "
+                                     (length gone) (string-join gone ", "))))
+          (magit-run-git "branch" "-D" gone)))
+      ;; r p
+      (magit-rebase-onto-pushremote (magit-rebase-arguments))))
+  (spacemacs/set-leader-keys "ot" 'magit-tidy-branch)
+
   ;; end-user-config
   )
 
