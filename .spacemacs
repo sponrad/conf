@@ -856,33 +856,41 @@ suggests some commit message prefixes."
   (with-eval-after-load 'transient
     (add-to-list 'transient-values '(magit-fetch "--prune")))
 
-  (defun magit-tidy-branch ()
-    "Fetch all remotes with prune, delete local branches whose upstream is gone,
-  then rebase the current branch onto its push branch."
+  (defun my/magit-remote-refs ()
+    (magit-git-lines "for-each-ref" "--format=%(refname)" "refs/remotes"))
+  (defun my/magit-branches-on-refs (refs)
+    "Local branches whose upstream or push-remote branch is in REFS."
+    (let ((current (magit-get-current-branch)))
+      (delq nil
+            (mapcar
+             (lambda (line)
+               (pcase-let ((`(,branch ,upstream) (split-string line "\t")))
+                 (let ((push-remote (magit-get "branch" branch "pushRemote")))
+                   (and (not (equal branch current))
+                        (or (member upstream refs)
+                            (and push-remote
+                                 (member (format "refs/remotes/%s/%s" push-remote branch)
+                                         refs)))
+                        branch))))
+             (magit-git-lines "for-each-ref"
+                              "--format=%(refname:short)\t%(upstream)"
+                              "refs/heads")))))
+  (defun my/magit-tidy-branch ()
+    "Fetch all remotes with prune, delete local branches whose remote branch
+  this fetch pruned, then rebase the current branch onto its push branch."
     (interactive)
     (require 'magit)
     (let ((default-directory (magit-toplevel)))
-      ;; f a (with --prune explicit, so it does not depend on fetch.prune config)
-      (magit-run-git "fetch" "--all" "--prune")
-      ;; local branches whose upstream the prune removed
-      (let* ((current (magit-get-current-branch))
-             (gone (delq nil
-                         (mapcar
-                          (lambda (line)
-                            (pcase-let ((`(,branch ,track) (split-string line "\t")))
-                              (and (equal track "[gone]")
-                                   (not (equal branch current))
-                                   branch)))
-                          (magit-git-lines "for-each-ref"
-                                           "--format=%(refname:short)\t%(upstream:track)"
-                                           "refs/heads")))))
-        (when (and gone
-                   (y-or-n-p (format "Delete %d gone branch(es): %s? "
-                                     (length gone) (string-join gone ", "))))
-          (magit-run-git "branch" "-D" gone)))
-      ;; r p
+      (let ((before (my/magit-remote-refs)))
+        (magit-run-git "fetch" "--all" "--prune")
+        (let ((gone (my/magit-branches-on-refs
+                     (seq-difference before (my/magit-remote-refs)))))
+          (when (and gone
+                     (y-or-n-p (format "Delete %d pruned branch(es): %s? "
+                                       (length gone) (string-join gone ", "))))
+            (magit-run-git "branch" "-D" gone))))
       (magit-rebase-onto-pushremote (magit-rebase-arguments))))
-  (spacemacs/set-leader-keys "ot" 'magit-tidy-branch)
+  (spacemacs/set-leader-keys "ot" 'my/magit-tidy-branch)
 
   ;; end-user-config
   )
